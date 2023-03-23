@@ -4,4 +4,4 @@
 ### File info:
 - pizzasales.csv - Database of customer orders
 - tableau sales dashboard - Interactive sales dashboard created in Tableau
-- sales.ipynb - Analysis
+- sales.ipynb - Data analysis
