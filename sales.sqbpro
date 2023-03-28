@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/flowe/OneDrive/Documents/pythontutorial/Pizza Sales Analysis/sales.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="150"/><column_width id="3" width="2568"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,5:mainsales"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="sales" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="179"/><column index="2" value="155"/><column index="3" value="160"/><column index="4" value="97"/><column index="5" value="125"/><column index="6" value="125"/><column index="7" value="116"/><column index="8" value="122"/><column index="9" value="117"/><column index="10" value="167"/><column index="11" value="300"/><column index="12" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT DISTINCT(pizza_name), count(pizza_name)
+FROM sales
+group by pizza_name
+order by count(pizza_name)
+
+SELECT count(pizza_name)
+FROM sales;</sql><sql name="pizza_name">-- top selling pizza?
+select pizza_name, round(sum(total_price))
+from sales
+group by pizza_name
+order by sum(total_price) desc;
+
+-- worst selling?
+select pizza_name, round(sum(total_price))
+from sales
+group by pizza_name
+order by sum(total_price);
+
+-- how may different  of flavors pizza?
+select DISTINCT(pizza_name)
+from sales
+-- 32
+</sql><sql name="pizza_ingridients">-- Which ingredients are used most often?
+select pizza_ingredients, count(pizza_ingredients)
+from sales
+group by pizza_ingredients
+order by count(pizza_ingredients) desc;
+;</sql><sql name="pizza_category">-- top selling category?
+select pizza_category, round(sum(total_price)) 
+from sales
+group by pizza_category
+order by round(sum(total_price)) desc;
+
+-- categorize each pizza?
+select distinct(pizza_category), pizza_name
+from sales
+
+-- how many categories are there?
+select DISTINCT(pizza_category)
+from sales;
+
+-- which category is most expensve?
+select pizza_category, max(unit_price)
+from sales
+group by pizza_category
+order by max(unit_price) desc;</sql><sql name="pizza_size">-- top selling pizza size? how many boxes will we need?
+select pizza_size,round(sum(unit_price * quantity), 2)
+from sales
+group by pizza_size
+order by round(sum(unit_price * quantity), 2) desc;
+
+-- # of sizes sold in this dataset?
+select pizza_size, count(pizza_size)
+from sales
+group by pizza_size
+order by count(pizza_size) desc;
+
+select pizza_size, avg(unit_price) as price
+from sales
+where pizza_category = &quot;Classic&quot;
+group by pizza_size
+order by price desc;</sql><sql name="unit_price">-- top selling pizza?
+select pizza_name, round(sum(unit_price))
+from sales
+group by pizza_name
+order by round(sum(unit_price)) desc;
+
+-- most expensive pizza?
+select pizza_name, pizza_size, max(unit_price)
+from sales
+group by pizza_name
+order by max(unit_price) desc;
+
+-- average cost of a large classic pizza?
+select pizza_category, pizza_size, round(avg(unit_price), 2)
+from sales
+where pizza_size = &quot;L&quot; and pizza_category = &quot;Classic&quot;;
+
+
+-- how much is a small four cheese pizza?
+select pizza_name, pizza_size, unit_price
+from sales
+where pizza_name = &quot;The Five Cheese Pizza&quot;; </sql><sql name="order_time">SELECT order_details_id, order_time, DEPART(hour, order_time) AS TimeUpdate
+From sales
+order by TimeUpdate desc;
+-- fix in python
+</sql><current_tab id="4"/></tab_sql></sqlb_project>
